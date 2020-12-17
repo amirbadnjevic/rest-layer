@@ -64,6 +64,12 @@ func (h *Handler) ServeHTTPC(ctx context.Context, w http.ResponseWriter, r *http
 	ctx = contextWithRoute(ctx, route)
 	ctx = contextWithIndex(ctx, h.index)
 
+	params := route.Params
+	namespace := params.Get("namespace")
+	if len(namespace) != 0 {
+		ctx = context.WithValue(ctx, "namespace", namespace)
+	}
+
 	// Execute the main route handler
 	status, headers, body := routeHandler(ctx, r, route)
 	if headers == nil {
