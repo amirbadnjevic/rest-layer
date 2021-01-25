@@ -29,7 +29,7 @@ type Schema struct {
 	MinLen int
 	// MaxLen defines the maximum number of fields (default no limit).
 	MaxLen int
-	// Wether additional fields are allowed or not.
+	// Whether additional fields are allowed or not.
 	AdditionalFieldsAllowed *bool
 }
 
