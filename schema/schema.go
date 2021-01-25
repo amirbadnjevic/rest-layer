@@ -29,6 +29,8 @@ type Schema struct {
 	MinLen int
 	// MaxLen defines the maximum number of fields (default no limit).
 	MaxLen int
+	// Wether additional fields are allowed or not.
+	AdditionalFieldsAllowed *bool
 }
 
 // Compile implements the ReferenceCompiler interface and call the same function
@@ -284,7 +286,7 @@ func (s Schema) validate(changes map[string]interface{}, base map[string]interfa
 		// Check invalid field (fields provided in the payload by not present in
 		// the schema).
 		def, found := s.Fields[field]
-		if !found {
+		if !found && (s.AdditionalFieldsAllowed == nil || *s.AdditionalFieldsAllowed == false) {
 			addFieldError(errs, field, "invalid field")
 			continue
 		}
